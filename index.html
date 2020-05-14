@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<title>ToDo</title>
+
+	<style>
+	body{
+		background-color:rgb(163, 197, 209);
+	}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<br>
+		<h2>ToDo</h2>
+
+	<ul class="list-group" id="listDoing"></ul>
+	<br>
+
+	<div class="input-group">
+		<div class="input-group-prepend">
+			<span class="input-group-text">Doings</span>
+		</div>
+		<input type="text" class="form-control" aria-label="Default" id="doingText" placeholder="Your doings">
+	</div>
+
+	<div id="message" style="color:red"></div>
+	<br>
+
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <label class="input-group-text" for="inputGroupSelect01">Importance</label>
+		  </div>
+		  <select type="color" class="custom-select" id="selectColor">
+		  	<option value="0">Without Color</option>
+		    <option value="1">Green - Wait</option>
+		    <option value="2">Orange - Not Very Important</option>
+		    <option value="3">Red - Very Important</option>
+		  </select>
+		</div>
+		
+		<button class="input-group-text" for="inputGroupSelect01" onclick="button()">Add</button>
+	</div>
+
+
+<script>
+	let list=document.getElementById('listDoing');
+
+	function button(){
+	//дата добавления
+		var d=new Date();
+		var hours=d.getHours();
+		var mins=d.getMinutes();
+
+	//li 
+		let doings=document.getElementById('doingText');
+		let text = doings.value;
+		if(text==""){
+  				document.getElementById('message').innerHTML='Нельзя добавлять пустую строку!';
+				return(text);
+			}
+
+	var element=document.createElement("li");
+	element.classList.add('list-group-item');
+	element.classList.add('list-group-item-action');
+	element.appendChild(document.createTextNode(text+" "+hours+":"+mins));
+	list.appendChild(element);
+	doings.value='';
+
+	//color
+		let colorSelect=document.getElementById('selectColor');
+		let color = colorSelect.value;
+			if(color==1){
+				element.style.color="green";
+			}
+
+			if(color==2){
+				element.style.color="orange";
+			}
+
+			if(color==3){
+				element.style.color='red';
+			}
+	}
+
+	list.onclick=function (decoration){
+	let element=decoration.target;
+	if (element.style.textDecoration){
+	element.style.textDecoration="";
+	}
+
+	else{
+	element.style.textDecoration="line-through";
+		}
+	}
+
+	list.ondblclick=function(decoration){
+	let element=decoration.target;
+	element.remove();
+}
+	</script>
+</body>
+
+</html>
